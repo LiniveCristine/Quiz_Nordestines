@@ -1,4 +1,4 @@
-# Alagoanes
+# Quiz Nortestinês
 
 A new Flutter project.
 
