@@ -1,4 +1,8 @@
+import 'package:alagoanes/words.dart';
 import 'package:flutter/material.dart';
+import 'components/ask_card.dart';
+import 'components/next_Button.dart';
+import 'components/word_card.dart';
 
 void main() => runApp(NordestinesApp());
 
@@ -37,9 +41,25 @@ class NordestinesApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<Map<String, Object>> _words = words;
+  int _selected = 0;
+
+  void _nextWord() {
+    setState(() {
+      _selected++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Map<String, Object>> answersList = _words[_selected]['answers'];
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -63,73 +83,11 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(bottom: 20),
-                //color: Colors.blue,
-
-                child: Card(
-                  elevation: 8,
-                  color: Color.fromRGBO(58, 58, 61, .83),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        width: double.infinity,
-                        //color: Colors.blue,
-                        child: Text(
-                          'O que significa:',
-                          style: Theme.of(context).textTheme.headline5,
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      Text(
-                        'Migué',
-                        style: Theme.of(context).textTheme.headline6,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
+              WordCard(_words[_selected]['word']),
+              ...answersList.map(
+                (answer) => AskCard(answer['answer']),
               ),
-              Card(
-                margin: EdgeInsets.all(7),
-                elevation: 8,
-                color: Color.fromRGBO(255, 255, 255, .7),
-                child: FlatButton(
-                  onPressed: () {},
-                  child: Text('Resporta 1'),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.all(7),
-                elevation: 8,
-                color: Color.fromRGBO(255, 255, 255, .7),
-                child: FlatButton(
-                  onPressed: () {},
-                  child: Text('Resporta 2'),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.all(7),
-                elevation: 8,
-                color: Color.fromRGBO(255, 255, 255, .7),
-                child: FlatButton(
-                  onPressed: () {},
-                  child: Text('Resporta 3'),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 7, right: 7),
-                alignment: Alignment.centerRight,
-                //color: Colors.amber,
-                child: RaisedButton(
-                  color: Color.fromRGBO(58, 58, 61, 1),
-                  onPressed: () {},
-                  child: Text(
-                    'Próxima',
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ),
-              )
+              NextButton(_nextWord),
             ],
           ),
         ),
