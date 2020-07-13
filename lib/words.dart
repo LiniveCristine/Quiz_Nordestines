@@ -106,9 +106,9 @@ List<Map<String, Object>> words = [
   {
     'word': 'Muganga',
     'answers': [
-      {'answer': 'Comida', 'score': 0},
-      {'answer': 'Brincadeira', 'score': 0},
-      {'answer': 'Mania', 'score': 10},
+      {'answer': 'tipo de Comida', 'score': 0},
+      {'answer': 'tipo de Brincadeira', 'score': 0},
+      {'answer': 'Muitas manias', 'score': 10},
     ],
   },
   {

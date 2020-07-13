@@ -1,6 +1,6 @@
 import 'package:alagoanes/words.dart';
 import 'package:flutter/material.dart';
-import 'components/ask_card.dart';
+import 'components/answer_card.dart';
 import 'components/next_Button.dart';
 import 'components/word_card.dart';
 
@@ -49,10 +49,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Map<String, Object>> _words = words;
   int _selected = 0;
+  Color answerColorCard = Color.fromRGBO(255, 255, 255, .7);
 
   void _nextWord() {
     setState(() {
       _selected++;
+      answerColorCard = Color.fromRGBO(255, 255, 255, .7);
     });
   }
 
@@ -85,7 +87,8 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               WordCard(_words[_selected]['word']),
               ...answersList.map(
-                (answer) => AskCard(answer['answer']),
+                (answer) => AnswerCard(
+                    answer['answer'], answer['score'], answerColorCard),
               ),
               NextButton(_nextWord),
             ],
