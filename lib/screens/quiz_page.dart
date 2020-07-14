@@ -8,12 +8,14 @@ class QuizPage extends StatelessWidget {
   final int selected;
   final void Function(int) nextWord;
   final List<Map<String, Object>> answersList;
+  final void Function(String, int) addErrorList;
 
   QuizPage({
     @required this.words,
     @required this.selected,
     @required this.nextWord,
     @required this.answersList,
+    @required this.addErrorList,
   });
 
   @override
@@ -27,9 +29,11 @@ class QuizPage extends StatelessWidget {
             WordCard(words[selected]['word']),
             ...answersList.map(
               (answer) => AnswerCard(
+                words[selected]['word'],
                 answer['answer'],
                 answer['score'],
                 nextWord,
+                addErrorList,
               ),
             ),
           ],

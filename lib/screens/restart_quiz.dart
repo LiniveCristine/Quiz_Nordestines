@@ -1,7 +1,10 @@
 import 'package:alagoanes/components/background.dart';
 import 'package:flutter/material.dart';
 
-class RestarPage extends StatelessWidget {
+class RestartPage extends StatelessWidget {
+  final int score;
+  RestartPage(this.score);
+
   @override
   Widget build(BuildContext context) {
     return BackgroundImage(
@@ -16,7 +19,7 @@ class RestarPage extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   child: Text(
-                    'Resultado: 10/60',
+                    'Resultado: $score/ 140',
                     style: Theme.of(context).textTheme.headline5,
                     textAlign: TextAlign.start,
                   ),
@@ -30,7 +33,7 @@ class RestarPage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Mandou bem!\n Quase melhor que São João',
+                  'Mandou bem!\n Quase melhor que São João.',
                   style: Theme.of(context).textTheme.headline4,
                   textAlign: TextAlign.center,
                 ),

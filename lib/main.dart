@@ -3,6 +3,8 @@ import 'package:alagoanes/screens/restart_quiz.dart';
 import 'package:alagoanes/words.dart';
 import 'package:flutter/material.dart';
 
+import 'error_list.dart';
+
 void main() => runApp(NordestinesApp());
 
 class NordestinesApp extends StatelessWidget {
@@ -69,6 +71,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void addErrorList(String word, int score) {
+    if (score != 10) {
+      errors.add(word);
+      print(errors);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Map<String, Object>> _answersList = _words[_selected]['answers'];
@@ -84,8 +93,9 @@ class _HomePageState extends State<HomePage> {
               selected: _selected,
               nextWord: _nextWord,
               answersList: _answersList,
+              addErrorList: addErrorList,
             )
-          : RestarPage(),
+          : RestartPage(total),
     );
   }
 }

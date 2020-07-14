@@ -5,11 +5,15 @@ class AnswerCard extends StatefulWidget {
   final String _answer;
   final int _score;
   void Function(int) nextWord;
+  final String _word;
+  final void Function(String, int) addErrorList;
 
   AnswerCard(
+    this._word,
     this._answer,
     this._score,
     this.nextWord,
+    this.addErrorList,
   );
 
   @override
@@ -25,6 +29,7 @@ class _AnswerCardState extends State<AnswerCard> {
       color: Color.fromRGBO(255, 255, 255, .7),
       child: FlatButton(
         onPressed: () {
+          widget.addErrorList(widget._word, widget._score);
           widget.nextWord(widget._score);
         },
         child: Text(widget._answer),
