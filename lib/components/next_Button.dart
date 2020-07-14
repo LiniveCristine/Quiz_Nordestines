@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NextButton extends StatelessWidget {
-  final void Function() _nextWord;
+  final void Function(int) _nextWord;
   NextButton(this._nextWord);
 
   @override
@@ -11,7 +11,9 @@ class NextButton extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: RaisedButton(
         color: Color.fromRGBO(58, 58, 61, 1),
-        onPressed: _nextWord,
+        onPressed: () {
+          //_nextWord(),
+        },
         child: Text(
           'Próxima',
           style: Theme.of(context).textTheme.headline5,

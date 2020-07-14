@@ -1,8 +1,7 @@
+import 'package:alagoanes/screens/quiz_page.dart';
+import 'package:alagoanes/screens/restart_quiz.dart';
 import 'package:alagoanes/words.dart';
 import 'package:flutter/material.dart';
-import 'components/answer_card.dart';
-import 'components/next_Button.dart';
-import 'components/word_card.dart';
 
 void main() => runApp(NordestinesApp());
 
@@ -24,6 +23,11 @@ class NordestinesApp extends StatelessWidget {
               headline5: TextStyle(
                 color: Colors.white,
                 fontSize: 15,
+              ),
+              headline4: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
               ),
             ),
         appBarTheme: AppBarTheme(
@@ -47,54 +51,41 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Map<String, Object>> _words = words;
+  final List<Map<String, Object>> _words = words;
   int _selected = 0;
-  Color answerColorCard = Color.fromRGBO(255, 255, 255, .7);
+  bool _moreWords = true;
+  int total = 0;
 
-  void _nextWord() {
+  void _nextWord(int score) {
     setState(() {
-      _selected++;
-      answerColorCard = Color.fromRGBO(255, 255, 255, .7);
+      if (_selected < _words.length - 1) {
+        total += score;
+        _selected++;
+        print(total);
+      } else {
+        _selected = 0;
+        _moreWords = false;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, Object>> answersList = _words[_selected]['answers'];
+    List<Map<String, Object>> _answersList = _words[_selected]['answers'];
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text('Quiz Nordestinês'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/lampiao.png'),
-            fit: BoxFit.fitHeight,
-            colorFilter:
-                ColorFilter.mode(Colors.brown[300], BlendMode.hardLight),
-            alignment: Alignment(-.6, 0),
-          ),
-        ),
-        child: Container(
-          //color: Colors.amber,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              WordCard(_words[_selected]['word']),
-              ...answersList.map(
-                (answer) => AnswerCard(
-                    answer['answer'], answer['score'], answerColorCard),
-              ),
-              NextButton(_nextWord),
-            ],
-          ),
-        ),
-      ),
+      body: _moreWords
+          ? QuizPage(
+              words: _words,
+              selected: _selected,
+              nextWord: _nextWord,
+              answersList: _answersList,
+            )
+          : RestarPage(),
     );
   }
 }

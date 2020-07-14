@@ -4,34 +4,28 @@ import 'package:flutter/material.dart';
 class AnswerCard extends StatefulWidget {
   final String _answer;
   final int _score;
-  Color normalColor;
+  void Function(int) nextWord;
 
-  AnswerCard(this._answer, this._score, this.normalColor);
+  AnswerCard(
+    this._answer,
+    this._score,
+    this.nextWord,
+  );
 
   @override
   _AnswerCardState createState() => _AnswerCardState();
 }
 
 class _AnswerCardState extends State<AnswerCard> {
-  void onSelected() {
-    setState(() {
-      if (widget._score == 10) {
-        widget.normalColor = Color.fromRGBO(94, 156, 65, .9);
-      } else {
-        widget.normalColor = Color.fromRGBO(156, 65, 65, 0.9);
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(7),
       elevation: 8,
-      color: widget.normalColor,
+      color: Color.fromRGBO(255, 255, 255, .7),
       child: FlatButton(
         onPressed: () {
-          onSelected();
+          widget.nextWord(widget._score);
         },
         child: Text(widget._answer),
       ),
