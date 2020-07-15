@@ -10,12 +10,11 @@ class WordCard extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 20),
       child: Card(
         elevation: 8,
-        color: Color.fromRGBO(58, 58, 61, .83),
+        color: Theme.of(context).accentColor,
         child: Column(
           children: <Widget>[
             Container(
               width: double.infinity,
-              //color: Colors.blue,
               child: Text(
                 'O que significa:',
                 style: Theme.of(context).textTheme.headline5,

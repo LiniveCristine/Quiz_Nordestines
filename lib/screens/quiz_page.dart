@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 class QuizPage extends StatelessWidget {
   final List<Map<String, Object>> words;
+  final List<Map<String, Object>> answersList;
   final int selected;
   final void Function(int) nextWord;
-  final List<Map<String, Object>> answersList;
-  final void Function(String, int) addErrorList;
+  final void Function(String, int, String) addErrorList;
 
   QuizPage({
     @required this.words,
@@ -30,6 +30,7 @@ class QuizPage extends StatelessWidget {
             ...answersList.map(
               (answer) => AnswerCard(
                 words[selected]['word'],
+                words[selected]['exemple'],
                 answer['answer'],
                 answer['score'],
                 nextWord,

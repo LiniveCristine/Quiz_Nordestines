@@ -1,25 +1,28 @@
 import 'package:alagoanes/components/background.dart';
+import 'package:alagoanes/error_list.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
+import 'erros_page.dart';
 
 class RestartPage extends StatelessWidget {
-  final int score;
-  RestartPage(this.score);
+  final int _score;
+  final void Function(BuildContext) restartQuiz;
+
+  RestartPage(this._score, this.restartQuiz);
 
   String scoreMensageFilter() {
-    if (score < 70) {
+    if (_score < 70) {
       return 'Ops . . .\n Não foi dessa vez.';
-    } else if (score >= 70 || score <= 100) {
+    } else if (_score >= 70 && _score <= 100) {
       return 'Mandou bem!\n Quase melhor que São João.';
     } else {
-      return 'Me fala a verdade...!\n Tu é nordestino, ne?.';
+      return 'Me fala a verdade . . .\n Tu é nordestino, ne?';
     }
   }
 
-  String socoreImageFilter() {
-    if (score < 70) {
+  String scoreImageFilter() {
+    if (_score < 70) {
       return 'assets/images/seca.png';
-    } else if (score >= 70 || score <= 100) {
+    } else if (_score >= 70 && _score <= 100) {
       return 'assets/images/festa.png';
     } else {
       return 'assets/images/sanfona.png';
@@ -34,13 +37,13 @@ class RestartPage extends StatelessWidget {
         children: <Widget>[
           Card(
             elevation: 8,
-            color: Color.fromRGBO(58, 58, 61, .83),
+            color: Theme.of(context).accentColor,
             child: Column(
               children: <Widget>[
                 Container(
                   width: double.infinity,
                   child: Text(
-                    'Resultado: $score/ 140',
+                    'Resultado: $_score/ 140',
                     style: Theme.of(context).textTheme.headline5,
                     textAlign: TextAlign.start,
                   ),
@@ -49,7 +52,7 @@ class RestartPage extends StatelessWidget {
                   width: 85,
                   margin: EdgeInsets.only(bottom: 10, top: 10),
                   child: Image.asset(
-                    socoreImageFilter(),
+                    scoreImageFilter(),
                     color: Colors.white,
                   ),
                 ),
@@ -59,7 +62,16 @@ class RestartPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 FlatButton(
-                    onPressed: () {},
+                    onPressed: errors.isEmpty
+                        ? null
+                        : () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ErrorPage(),
+                              ),
+                            );
+                          },
                     child: Text(
                       'Erros',
                       style: Theme.of(context).textTheme.headline5,
@@ -70,14 +82,9 @@ class RestartPage extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 20),
             child: FloatingActionButton(
-              backgroundColor: Color.fromRGBO(58, 58, 61, .83),
+              backgroundColor: Theme.of(context).accentColor,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(),
-                  ),
-                );
+                restartQuiz(context);
               },
               child: Icon(
                 Icons.replay,

@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 class AnswerCard extends StatefulWidget {
   final String _answer;
   final int _score;
-  void Function(int) nextWord;
   final String _word;
-  final void Function(String, int) addErrorList;
+  final String _exemple;
+  final void Function(String, int, String) addErrorList;
+  void Function(int) nextWord;
 
   AnswerCard(
     this._word,
+    this._exemple,
     this._answer,
     this._score,
     this.nextWord,
@@ -29,7 +31,11 @@ class _AnswerCardState extends State<AnswerCard> {
       color: Color.fromRGBO(255, 255, 255, .7),
       child: FlatButton(
         onPressed: () {
-          widget.addErrorList(widget._word, widget._score);
+          widget.addErrorList(
+            widget._word,
+            widget._score,
+            widget._exemple,
+          );
           widget.nextWord(widget._score);
         },
         child: Text(widget._answer),

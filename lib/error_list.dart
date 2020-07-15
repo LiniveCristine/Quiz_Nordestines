@@ -1,1 +1,1 @@
-List<String> errors = [];
+List<Map<String, String>> errors = [];

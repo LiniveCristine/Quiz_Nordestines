@@ -2,7 +2,6 @@ import 'package:alagoanes/screens/quiz_page.dart';
 import 'package:alagoanes/screens/restart_quiz.dart';
 import 'package:alagoanes/words.dart';
 import 'package:flutter/material.dart';
-
 import 'error_list.dart';
 
 void main() => runApp(NordestinesApp());
@@ -14,7 +13,7 @@ class NordestinesApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.brown,
-        accentColor: Colors.grey,
+        accentColor: Color.fromRGBO(58, 58, 61, .83),
         fontFamily: 'Poppins',
         textTheme: ThemeData.light().textTheme.copyWith(
               headline6: TextStyle(
@@ -71,11 +70,23 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void addErrorList(String word, int score) {
+  void addErrorList(String word, int score, String exemple) {
     if (score != 10) {
-      errors.add(word);
-      print(errors);
+      errors.add({'word': word, 'exemple': exemple});
     }
+  }
+
+  void restartQuiz(context) {
+    setState(() {
+      errors.clear();
+    });
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ),
+    );
   }
 
   @override
@@ -95,7 +106,7 @@ class _HomePageState extends State<HomePage> {
               answersList: _answersList,
               addErrorList: addErrorList,
             )
-          : RestartPage(total),
+          : RestartPage(total, restartQuiz),
     );
   }
 }
