@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'erros_page.dart';
 
 class RestartPage extends StatelessWidget {
-  final int _score;
-  final void Function(BuildContext) restartQuiz;
+  final int score;
+  final void Function(BuildContext) restartFunction;
 
-  RestartPage(this._score, this.restartQuiz);
+  RestartPage({
+    @required this.score,
+    @required this.restartFunction,
+  });
 
   String scoreMensageFilter() {
-    if (_score < 70) {
+    if (score < 70) {
       return 'Ops . . .\n Não foi dessa vez.';
-    } else if (_score >= 70 && _score <= 100) {
+    } else if (score >= 70 && score <= 100) {
       return 'Mandou bem!\n Quase melhor que São João.';
     } else {
       return 'Me fala a verdade . . .\n Tu é nordestino, ne?';
@@ -20,9 +23,9 @@ class RestartPage extends StatelessWidget {
   }
 
   String scoreImageFilter() {
-    if (_score < 70) {
+    if (score < 70) {
       return 'assets/images/seca.png';
-    } else if (_score >= 70 && _score <= 100) {
+    } else if (score >= 70 && score <= 100) {
       return 'assets/images/festa.png';
     } else {
       return 'assets/images/sanfona.png';
@@ -43,7 +46,7 @@ class RestartPage extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   child: Text(
-                    'Resultado: $_score/ 140',
+                    'Resultado: $score/ 140',
                     style: Theme.of(context).textTheme.headline5,
                     textAlign: TextAlign.start,
                   ),
@@ -84,7 +87,7 @@ class RestartPage extends StatelessWidget {
             child: FloatingActionButton(
               backgroundColor: Theme.of(context).accentColor,
               onPressed: () {
-                restartQuiz(context);
+                restartFunction(context);
               },
               child: Icon(
                 Icons.replay,

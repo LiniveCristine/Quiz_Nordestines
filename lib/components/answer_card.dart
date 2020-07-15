@@ -1,28 +1,34 @@
 import 'package:flutter/material.dart';
 
+import '../error_list.dart';
+
 // ignore: must_be_immutable
 class AnswerCard extends StatefulWidget {
-  final String _answer;
-  final int _score;
-  final String _word;
-  final String _exemple;
-  final void Function(String, int, String) addErrorList;
+  final String answer;
+  final int score;
+  final String word;
+  final String exemple;
   void Function(int) nextWord;
 
-  AnswerCard(
-    this._word,
-    this._exemple,
-    this._answer,
-    this._score,
-    this.nextWord,
-    this.addErrorList,
-  );
+  AnswerCard({
+    @required this.word,
+    @required this.exemple,
+    @required this.answer,
+    @required this.score,
+    @required this.nextWord,
+  });
 
   @override
   _AnswerCardState createState() => _AnswerCardState();
 }
 
 class _AnswerCardState extends State<AnswerCard> {
+  void addErrorList(String word, int score, String exemple) {
+    if (score != 10) {
+      errors.add({'word': word, 'exemple': exemple});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -31,14 +37,14 @@ class _AnswerCardState extends State<AnswerCard> {
       color: Color.fromRGBO(255, 255, 255, .7),
       child: FlatButton(
         onPressed: () {
-          widget.addErrorList(
-            widget._word,
-            widget._score,
-            widget._exemple,
+          addErrorList(
+            widget.word,
+            widget.score,
+            widget.exemple,
           );
-          widget.nextWord(widget._score);
+          widget.nextWord(widget.score);
         },
-        child: Text(widget._answer),
+        child: Text(widget.answer),
       ),
     );
   }

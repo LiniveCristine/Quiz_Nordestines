@@ -52,28 +52,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Map<String, Object>> _words = words;
   int _selected = 0;
   bool _moreWords = true;
   int total = 0;
 
   void _nextWord(int score) {
     setState(() {
-      if (_selected < _words.length - 1) {
+      if (_selected < words.length - 1) {
         total += score;
         _selected++;
-        print(total);
       } else {
         _selected = 0;
         _moreWords = false;
       }
     });
-  }
-
-  void addErrorList(String word, int score, String exemple) {
-    if (score != 10) {
-      errors.add({'word': word, 'exemple': exemple});
-    }
   }
 
   void restartQuiz(context) {
@@ -91,8 +83,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, Object>> _answersList = _words[_selected]['answers'];
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -100,13 +90,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: _moreWords
           ? QuizPage(
-              words: _words,
               selected: _selected,
               nextWord: _nextWord,
-              answersList: _answersList,
-              addErrorList: addErrorList,
             )
-          : RestartPage(total, restartQuiz),
+          : RestartPage(
+              score: total,
+              restartFunction: restartQuiz,
+            ),
     );
   }
 }
