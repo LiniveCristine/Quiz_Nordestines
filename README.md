@@ -7,6 +7,8 @@ Aplicação feita em Flutter para implementar meus estudos.
 O app é composto por 15 perguntas e sua pontuação pode variar de 0 a 140, de acordo com seus acertos.
 Ao final é possível conferir sua pontuação, seus erros e um exemplo de como utilizar cada palavra. 
 
+Ilustração:  [Pablo Peiker](https://dribbble.com/shots/9688496-Lampi-o?utm_source=Clipboard_Shot&utm_campaign=pablopeiker&utm_content=Lampi%C3%A3o&utm_medium=Social_Share) 
+
 
 # Screenshots
 
